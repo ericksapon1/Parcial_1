@@ -1,0 +1,68 @@
+Bloc de Notas para Pruebas del Sistema de Gestión de Tareas y Proyectos
+
+
+Pasos para Ingresar Valores y Realizar Pruebas
+
+1. Registrar un Proyecto
+Primero, debes crear y registrar un proyecto en el sistema.
+
+Crear un nuevo proyecto
+
+Proyecto proyecto1 = new Proyecto("Sistema Académico", "Desarrollo de un sistema académico para la universidad", new Date(), new Date());
+
+proyectoService.registrarProyecto(proyecto1);
+
+Explicación:
+- "Sistema Académico" es el nombre del proyecto.
+- "Desarrollo de un sistema académico para la universidad" es la descripción del proyecto.
+- new Date() se usa para la fecha de inicio y finalización 
+
+2. Registrar una Tarea
+Ingresamos una tarea asociada al proyecto que se acaba de crear.
+
+Tarea tarea1 = new Tarea("Diseñar Base de Datos", "Diseñar la estructura de la base de datos del sistema", new Date(), "Alta", "Pendiente");
+
+Explicación:
+- "Diseñar Base de Datos" es el título de la tarea.
+- "Diseñar la estructura de la base de datos del sistema" es la descripción de la tarea.
+- "Alta" indica la prioridad.
+- "Pendiente" es el estado inicial de la tarea.
+
+3. Asignar la Tarea al Proyecto
+
+try {
+    proyectoService.asignarTareaAProyecto("Sistema Académico", tarea1);
+} catch (ProyectoNoEncontradoException e) {
+    System.err.println(e.getMessage());
+}
+
+Explicación:
+- El nombre "Sistema Académico" debe coincidir con el nombre del proyecto registrado.
+- Si el proyecto no es encontrado, se lanzará una excepción ProyectoNoEncontradoException.
+
+4. Consultar Proyectos y Tareas
+Finalmente, verifica que el proyecto y las tareas se han registrado correctamente.
+
+try {
+    Proyecto proyecto = proyectoService.obtenerProyecto("Sistema Académico");
+    System.out.println("Proyecto: " + proyecto.getNombre());
+    for (Tarea tarea : proyecto.getTareas()) {
+        System.out.println("Tarea: " + tarea.getTitulo() + ", Estado: " + tarea.getEstado());
+    }
+} catch (ProyectoNoEncontradoException e) {
+    System.err.println(e.getMessage());
+}
+
+Explicación:
+- Este código nos permite ver en la consola el proyecto y las tareas asociadas, con sus respectivos estados.
+
+5. Actualizar el Estado de una Tarea
+Para actualizar el estado de una tarea a "Completada":
+
+tarea1.cambiarEstado("Completada");
+
+Explicación:
+- Esto actualiza el estado de la tarea "Diseñar Base de Datos" a "Completada".
+
+Conclusión
+Siguiendo estos pasos, podemos ingresar valores para probar que las funcionalidades de registro, asignación y consulta en el sistema de gestión de tareas y proyectos están funcionando correctamente. Puedes modificar los valores y realizar pruebas adicionales para explorar otras funcionalidades del sistema.
